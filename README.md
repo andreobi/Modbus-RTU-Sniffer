@@ -8,7 +8,7 @@ modbus -> RS485 adapter -> ESP <-> wireless network <-> browser
 
 There is no Security implemented to access the Sniffer Server. Also the Web Socket connection and data exchange is open to the connected network. When the ESP is operated as an Access Point, there is a limitation that only one client can connect to the ESP.
 
-The software was developed under Arduino with some help of Google-AI. So neither Google nor I will take responibility or any relaiabilty for the code or functionality.
+The software was developed under Arduino with some help of Google-AI. So neither Google nor I will take responsibility or any laiabilty for the code or functionality.
 
 
 The sniffer provides (please take a look at the Modbus Sniffer.pdf)
