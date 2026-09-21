@@ -11,10 +11,14 @@ There is no Security implemented to access the Sniffer Server. Also the Web Sock
 The software was developed under Arduino with some help of Google-AI. So neither Google nor I will take responibility or any relaiabilty for the code or functionality.
 
 The sniffer provides (please take a look at the Modbus Sniffer.pdf)
+- A device filter, 0 means filter off.
 - A rough statistic overview with register types and used addresses.
 - A monitor to filter out the transfered data for 4 selected function codes and addresses.
 - A sniffer for 100 commuication packets. The sniffer could be started manually oder via a defined bus pattern.
-- The data shown in the browser can also be downloaded as a JSON file
+- The data shown in the browser can also be downloaded as a JSON file.
+
+Please have in mind:
+After changing an Input value you need to push the set Button in 5 sec, otherwise the data will be over written by the server.
 
 The software uses some basic task management from the RTOS.
 - Task 1 capture data from the serial bus. Checks for frame end and frame length.
