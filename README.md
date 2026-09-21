@@ -20,7 +20,7 @@ The software uses some basic task management from the RTOS.
   - in access point mode: SSID and PASSWORD and ...
   - Modbus data
 
-If Pin 22 is low after an reset or no SSID is configured the ESP runs into the access point mode.
+If Pin 22 is low after reset or no SSID is configured the ESP runs into the access point mode.
 
 The function codes 3,4 and 6 are tested with real hardware. All other FCs are implemented with a limted testing.
  
