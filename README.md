@@ -17,11 +17,11 @@ The sniffer provides (please take a look at the Modbus Sniffer.pdf)
 - A monitor to filter out the transfered data for 4 selected function codes and addresses.
 - A sniffer for 100 commuication packets. The sniffer could be started manually oder via a defined bus pattern.
 - The data shown in the browser can also be downloaded as a JSON file.
-- The Trigger Pattern & Mask will be compared to the modbus Data & Mask, so only 1 in the Mask matter. In case the hole Mask is set to 0 the Trigger will hit on each Packet.
+- The Trigger Pattern & Mask will be compared to the modbus Data & Mask, so only 1 in the Mask matter. In case the hole Mask is set to 0 the Trigger will hit on each Packet. When the Trigger has a hit, the recording will start one modbus communication before the hit.
+
 
 Please have in mind:
 After changing an Input value you need to push the set Button in 5 sec, otherwise the data will be over written by the server. Only the Trigger and Mask Pattern are not synchronized. The set button will arm the trigger.
-
 
 The software uses some basic task management from the RTOS.
 - Task 1 capture data from the serial bus. Checks for frame end and frame length.
