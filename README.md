@@ -20,7 +20,7 @@ The sniffer provides (please take a look at the Modbus Sniffer.pdf)
 - The Trigger Pattern & Mask will be compared to the modbus Data & Mask, so only 1 in the Mask matter. In case the hole Mask is set to 0 the Trigger will hit on each Packet.
 
 Please have in mind:
-After changing an Input value you need to push the set Button in 5 sec, otherwise the data will be over written by the server.
+After changing an Input value you need to push the set Button in 5 sec, otherwise the data will be over written by the server. Only the Trigger and Mask Pattern are not synchronized. The set button will arm the trigger.
 
 
 The software uses some basic task management from the RTOS.
