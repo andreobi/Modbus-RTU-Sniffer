@@ -862,8 +862,12 @@ void checkType16(void) {
 
 
 void identifyRxData(void) {
+// allway detect new devices
   pstatus.devices.insert(String(loopRxDaten.payload[0])); // add to device list
-  
+
+// check Device Filter
+  if (targetDeviceFilter != 0 && loopRxDaten.payload[0] != targetDeviceFilter) return;
+
   last2P = lastP;
   lastP = currentP;
   for(size_t i =0; i <loopRxDaten.length; i++) {
@@ -1018,17 +1022,19 @@ void identifyRxData(void) {
     }
   }
 
-if(lastP.packetTypeP == PTM_REQUEST && currentP.packetTypeP == PTM_REQUEST) {
- // ??? respones missing !!
- Serial.println("Respone missing");
-  pstatus.response++;
+// protocol flow
+  if(lastP.packetTypeP == PTM_REQUEST && currentP.packetTypeP == PTM_REQUEST) {
+// ??? respones missing !!
+//Serial.println("Respone missing");
+    pstatus.response++;
   }
-if(lastP.packetTypeP != PTM_REQUEST && currentP.packetTypeP == PTM_RESPONSE) { // timeout ???
- // ??? respones missing !!
- Serial.println("Request missing");
-  pstatus.request++;
+  if(lastP.packetTypeP != PTM_REQUEST && currentP.packetTypeP == PTM_RESPONSE) { // timeout ???
+// ??? respones missing !!
+//Serial.println("Request missing");
+    pstatus.request++;
   }
 
+// take data from task / date are not protected 
   pstatus.crcErrors = crcerrorCnt;
   pstatus.fragments = noframesCnt;
   
@@ -1063,28 +1069,27 @@ if(lastP.packetTypeP != PTM_REQUEST && currentP.packetTypeP == PTM_RESPONSE) { /
         } else if(currentP.fc == 5 || currentP.fc == 6 ) {
           // write address & data found
           fcvMatrix[i].timestamp = currentP.timestamp;
-  String hexStr = "";
-  for (size_t i = currentP.dataStart; i < currentP.length -2; i++) {
-    uint8_t b =  loopRxDaten.payload[i]; 
-    if (b < 0x10) hexStr += "0";
-    hexStr += String(b, HEX) + " ";
-  }
-  hexStr.trim();
-  hexStr.toUpperCase();
+          String hexStr = "";
+          for (size_t i = currentP.dataStart; i < currentP.length -2; i++) {
+            uint8_t b =  loopRxDaten.payload[i]; 
+            if (b < 0x10) hexStr += "0";
+            hexStr += String(b, HEX) + " ";
+          }
+          hexStr.trim();
+          hexStr.toUpperCase();
           fcvMatrix[i].fcvData = hexStr;
           break;
         } else if(currentP.fc == 15 || currentP.fc == 16 ) {
           // write address and multi Data, quantity found
           fcvMatrix[i].timestamp = currentP.timestamp;
-  String hexStr = "";
-  for (size_t i = currentP.dataStart; i < currentP.length -2; i++) {
-    uint8_t b =  loopRxDaten.payload[i]; 
-    if (b < 0x10) hexStr += "0";
-    hexStr += String(b, HEX) + " ";
-  }
-  hexStr.trim();
-  hexStr.toUpperCase();
-
+          String hexStr = "";
+          for (size_t i = currentP.dataStart; i < currentP.length -2; i++) {
+            uint8_t b =  loopRxDaten.payload[i]; 
+            if (b < 0x10) hexStr += "0";
+            hexStr += String(b, HEX) + " ";
+          }
+          hexStr.trim();
+          hexStr.toUpperCase();
           fcvMatrix[i].fcvData = hexStr;
           break;
         } else if (i == 3) {
@@ -1095,14 +1100,14 @@ if(lastP.packetTypeP != PTM_REQUEST && currentP.packetTypeP == PTM_RESPONSE) { /
         fcvMatch = 0;              // reset match address
         fcvMatrix[i].timestamp = currentP.timestamp;
 
-  String hexStr = "";
-  for (size_t i = currentP.dataStart; i < currentP.length -2; i++) {
-    uint8_t b =  loopRxDaten.payload[i]; 
-    if (b < 0x10) hexStr += "0";
-    hexStr += String(b, HEX) + " ";
-  }
-  hexStr.trim();
-  hexStr.toUpperCase();
+        String hexStr = "";
+        for (size_t i = currentP.dataStart; i < currentP.length -2; i++) {
+          uint8_t b =  loopRxDaten.payload[i]; 
+          if (b < 0x10) hexStr += "0";
+          hexStr += String(b, HEX) + " ";
+        }
+        hexStr.trim();
+        hexStr.toUpperCase();
         fcvMatrix[i].fcvData = hexStr;
         break;
       } else if (i == 3) {
@@ -1111,9 +1116,7 @@ if(lastP.packetTypeP != PTM_REQUEST && currentP.packetTypeP == PTM_RESPONSE) { /
     }
   }
 
-  // Device Filter prüfen
-  if (targetDeviceFilter != 0 && loopRxDaten.payload[0] != targetDeviceFilter) return;
-
+// gernrate Output
   printPacket();
   addLogEntry(currentP);
 }
