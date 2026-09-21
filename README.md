@@ -35,5 +35,7 @@ The software uses some basic task management from the RTOS.
 
 If Pin 22 is low after reset or no SSID is configured the ESP runs into the access point mode.
 
+On Pin 2 is an Output to indicate the bus activity. (+3.3V - resistor - LED - Pin2). Continious slow symetric blinking indicates Access Point mode. 
+
 The function codes 3,4 and 6 are tested with real hardware. All other FCs are implemented with a limted testing.
  
